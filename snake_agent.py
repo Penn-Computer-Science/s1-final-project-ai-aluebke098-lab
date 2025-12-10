@@ -3,6 +3,8 @@ import random
 import numpy as np
 from collections import deque
 from snake_game_ai import SnakeGameAI, Direction, Point, BLOCK_SIZE
+from snake_model import Linear_QNet, QTrainer
+from graph_helper import plot
 
 MAX_MEMORY = 100_000
 BATCH_SIZE = 1_000
@@ -13,11 +15,10 @@ class Agent:
     def __init__(self):
         self.n_games = 0 # number of games
         self.epsilon = 0 # randomness factor
-        self.gamma = 0 # discount rate
+        self.gamma = 0.9 # discount rate
         self.memory = deque(maxlen = MAX_MEMORY) # popleft() - automatically done when it exceeds the mas memory, removes the left (firstmost) element 
-        self.model = None # TODO
-        self.trainer = None # TODO
-        # TODO: model, trainer
+        self.model = Linear_QNet(11, 256, 3) # layers: 11 input, 256 hidden, 3 output
+        self.trainer = QTrainer(self.model, lr=LR, gamma = self.gamma)
 
     def get_state(self, game):
         head = game.snake[0] # front of snake
@@ -85,10 +86,22 @@ class Agent:
         self.trainer.train_step(state, action, reward, next_state, done)
 
     def get_action(self, state):
-        pass
+        #  random moves: tradeoff exploration / exploitation
+        self.epsilon = 80 - self.n_games # epsilon gets smaller the more games are played
+        final_move = [0,0,0]
+        if random.randint(0,200) < self.epsilon: # the smaller epsilon gets, the chance of getting a random value goes down
+            move = random.randint(0,2) # gives the index of the move (0, 1, or 2)
+            final_move[move] = 1 # sets the value to true
+        else:
+            state0 = torch.tensor(state, dtype=torch.float) # converts the state from a list into a tensor
+            prediction = self.model(state0) #gives a prediction based on the current state, according to memory
+            move = torch.argmax(prediction).item() #converts it to only one number (index of move)
+            final_move[move] = 1 
+
+        return final_move
 
 def train():
-    plot_score = [] #score after each game as points for graph
+    plot_scores = [] #score after each game as points for graph
     plot_mean_scores = [] #average score after each game as points for graph
     total_score = 0 #cumultive score total
     record = 0 #high score
@@ -119,11 +132,15 @@ def train():
 
             if score > record: # update high score
                 record = score
-                # TODO: agent.mode.save()
+                agent.model.save()
 
             print('Game', agent.n_games, 'Score', score, 'Record:', record)
 
-            # TODO: plot result
+            plot_scores.append(score)
+            total_score += score
+            mean_score = total_score / agent.n_games
+            plot_mean_scores.append(mean_score)
+            plot(plot_scores, plot_mean_scores)
 
 
 if __name__ == '__main__':
