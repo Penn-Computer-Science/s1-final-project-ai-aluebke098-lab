@@ -132,7 +132,7 @@ def train():
 
             if score > record: # update high score
                 record = score
-                agent.model.save()
+                agent.model.save(Linear_QNet, 'viper.pth') #TODO
 
             print('Game', agent.n_games, 'Score', score, 'Record:', record)
 
