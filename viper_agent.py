@@ -2,7 +2,7 @@ import torch
 import random
 import numpy as np
 from collections import deque
-from snake_game_ai import SnakeGameAI, Direction, Point, BLOCK_SIZE
+from snake_game_env import SnakeGameAI, Direction, Point, BLOCK_SIZE
 from snake_model import Linear_QNet, QTrainer
 from graph_helper import make_graphs
 
@@ -10,7 +10,7 @@ MAX_MEMORY = 100_000
 BATCH_SIZE = 1_000
 LR = 0.001 #learning rate
 
-class Agent:
+class Agent_V:
 
     def __init__(self):
         self.n_games = 0 # number of games
@@ -105,7 +105,7 @@ def train():
     plot_mean_scores = [] #average score after each game as points for graph
     total_score = 0 #cumultive score total
     record = 0 #high score
-    agent = Agent()
+    agent = Agent_V()
     game = SnakeGameAI()
     while True:
         # get old state
@@ -132,7 +132,7 @@ def train():
 
             if score > record: # update high score
                 record = score
-                agent.model.save(Linear_QNet, 'viper.pth') #TODO
+                agent.model.save('viper.pth') 
 
             print('Game', agent.n_games, 'Score', score, 'Record:', record)
 
