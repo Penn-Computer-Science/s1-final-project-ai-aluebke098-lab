@@ -140,7 +140,7 @@ def train():
             total_score += score
             mean_score = total_score / agent.n_games
             plot_mean_scores.append(mean_score)
-            make_graphs(plot_scores, plot_mean_scores)
+            make_graphs(plot_scores, plot_mean_scores, [0], [0])
 
 
 if __name__ == '__main__':

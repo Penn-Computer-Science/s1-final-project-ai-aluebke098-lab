@@ -29,123 +29,123 @@ RED = (200,0,0)
 BLUE1 = (0, 0, 255)
 BLUE2 = (0, 100, 255)
 
-BLOCK_SIZE = 40
+BLOCK_SIZE = 20
 SPEED = 20
 
 
-class Viper:
+# class Viper:
     
-    def __init__(self, w=640, h=480):
-        self.w = w
-        self.h = h
-    #     # init display
-    #     self.display = pygame.display.set_mode((self.w, self.h))
-    #     pygame.display.set_caption('Snake')
-    #     self.clock = pygame.time.Clock()
-    #     self.reset()
+#     def __init__(self, w=640, h=480):
+#         self.w = w
+#         self.h = h
+#     #     # init display
+#     #     self.display = pygame.display.set_mode((self.w, self.h))
+#     #     pygame.display.set_caption('Snake')
+#     #     self.clock = pygame.time.Clock()
+#     #     self.reset()
 
-    # def reset(self):
-    #     # init game state
+#     # def reset(self):
+#     #     # init game state
         
         
-    def _place_food(self):
-        x = random.randint(0, (self.w-BLOCK_SIZE )//BLOCK_SIZE )*BLOCK_SIZE 
-        y = random.randint(0, (self.h-BLOCK_SIZE )//BLOCK_SIZE )*BLOCK_SIZE
-        self.food = Point(x, y)
-        if self.food in self.snake:
-            self._place_food()
+#     def _place_food(self):
+#         x = random.randint(0, (self.w-BLOCK_SIZE )//BLOCK_SIZE )*BLOCK_SIZE 
+#         y = random.randint(0, (self.h-BLOCK_SIZE )//BLOCK_SIZE )*BLOCK_SIZE
+#         self.food = Point(x, y)
+#         if self.food in self.snake:
+#             self._place_food()
         
-    # def play_step(self, action):
-    #     self.frame_iteration += 1
-    #     # 1. collect user input
-    #     for event in pygame.event.get():
-    #         if event.type == pygame.QUIT:
-    #             pygame.quit()
-    #             quit()
+#     # def play_step(self, action):
+#     #     self.frame_iteration += 1
+#     #     # 1. collect user input
+#     #     for event in pygame.event.get():
+#     #         if event.type == pygame.QUIT:
+#     #             pygame.quit()
+#     #             quit()
         
-    #     # 2. move
-    #     self._move(action) # update the head
-    #     self.snake.insert(0, self.head)
+#     #     # 2. move
+#     #     self._move(action) # update the head
+#     #     self.snake.insert(0, self.head)
         
-    #     # 3. check if game over
-    #     reward = 0
-    #     game_over = False
-    #     if self.is_collision() or self.frame_iteration > 100*len(self.snake):
-    #         game_over = True
-    #         reward = -10
-    #         return reward, game_over, self.score
+#     #     # 3. check if game over
+#     #     reward = 0
+#     #     game_over = False
+#     #     if self.is_collision() or self.frame_iteration > 100*len(self.snake):
+#     #         game_over = True
+#     #         reward = -10
+#     #         return reward, game_over, self.score
             
-    #     # 4. place new food or just move
-    #     if self.head == self.food:
-    #         self.score += 1
-    #         reward = 10
-    #         self._place_food()
-    #     else:
-    #         self.snake.pop()
+#     #     # 4. place new food or just move
+#     #     if self.head == self.food:
+#     #         self.score += 1
+#     #         reward = 10
+#     #         self._place_food()
+#     #     else:
+#     #         self.snake.pop()
         
-    #     # 5. update ui and clock
-    #     self._update_ui()
-    #     self.clock.tick(SPEED)
-    #     # 6. return game over and score
-    #     return reward, game_over, self.score
+#     #     # 5. update ui and clock
+#     #     self._update_ui()
+#     #     self.clock.tick(SPEED)
+#     #     # 6. return game over and score
+#     #     return reward, game_over, self.score
     
-    def is_collision(self, pt=None):
-        if pt is None:
-            pt = self.head
-        # hits boundary
-        if pt.x > self.w - BLOCK_SIZE or pt.x < 0 or pt.y > self.h - BLOCK_SIZE or pt.y < 0:
-            return True
-        # hits itself
-        if pt in self.snake[1:] or pt in SnakeGameAI.snake:
-            return True
+#     def is_collision(self, pt=None):
+#         if pt is None:
+#             pt = self.head
+#         # hits boundary
+#         if pt.x > self.w - BLOCK_SIZE or pt.x < 0 or pt.y > self.h - BLOCK_SIZE or pt.y < 0:
+#             return True
+#         # hits itself
+#         if pt in self.snake[1:] or pt in SnakeGameAI.snake:
+#             return True
         
-        return False
+#         return False
         
-    # def _update_ui(self):
-    #     self.display.fill(BLACK)
+#     # def _update_ui(self):
+#     #     self.display.fill(BLACK)
         
-    #     for pt in self.snake:
-    #         pygame.draw.rect(self.display, BLUE1, pygame.Rect(pt.x, pt.y, BLOCK_SIZE, BLOCK_SIZE))
-    #         pygame.draw.rect(self.display, BLUE2, pygame.Rect(pt.x+4, pt.y+4, 12, 12))
+#     #     for pt in self.snake:
+#     #         pygame.draw.rect(self.display, BLUE1, pygame.Rect(pt.x, pt.y, BLOCK_SIZE, BLOCK_SIZE))
+#     #         pygame.draw.rect(self.display, BLUE2, pygame.Rect(pt.x+4, pt.y+4, 12, 12))
             
-    #     pygame.draw.rect(self.display, RED, pygame.Rect(self.food.x, self.food.y, BLOCK_SIZE, BLOCK_SIZE))
+#     #     pygame.draw.rect(self.display, RED, pygame.Rect(self.food.x, self.food.y, BLOCK_SIZE, BLOCK_SIZE))
         
-    #     text = font.render("Score: " + str(self.score), True, WHITE)
-    #     self.display.blit(text, [0, 0])
-    #     pygame.display.flip()
+#     #     text = font.render("Score: " + str(self.score), True, WHITE)
+#     #     self.display.blit(text, [0, 0])
+#     #     pygame.display.flip()
         
-    def _move(self, action):
-        # [straight, right, left]
+#     def _move(self, action):
+#         # [straight, right, left]
 
-        clock_wise = [Direction.RIGHT, Direction.DOWN, Direction.LEFT, Direction.UP]
-        idx = clock_wise.index(self.direction)
+#         clock_wise = [Direction.RIGHT, Direction.DOWN, Direction.LEFT, Direction.UP]
+#         idx = clock_wise.index(self.direction)
 
-        if np.array_equal(action, [1, 0, 0]):
-            new_dir = clock_wise[idx] #no change(straight)
-        if np.array_equal(action, [0, 1, 0]):
-            next_idx = (idx + 1) % 4
-            new_dir = clock_wise[next_idx] # right turn (+1 clockwise, modulus 4 to stay in range)
-        else: # [0, 0, 1]
-            next_idx = (idx -1) % 4
-            new_dir = clock_wise[next_idx] # left turn (-1 clockwise, modulus 4 to stay in range)
+#         if np.array_equal(action, [1, 0, 0]):
+#             new_dir = clock_wise[idx] #no change(straight)
+#         if np.array_equal(action, [0, 1, 0]):
+#             next_idx = (idx + 1) % 4
+#             new_dir = clock_wise[next_idx] # right turn (+1 clockwise, modulus 4 to stay in range)
+#         else: # [0, 0, 1]
+#             next_idx = (idx -1) % 4
+#             new_dir = clock_wise[next_idx] # left turn (-1 clockwise, modulus 4 to stay in range)
 
-        self.direction = new_dir
+#         self.direction = new_dir
 
-        x = self.head.x
-        y = self.head.y
-        if self.direction == Direction.RIGHT:
-            x += BLOCK_SIZE
-        elif self.direction == Direction.LEFT:
-            x -= BLOCK_SIZE
-        elif self.direction == Direction.DOWN:
-            y += BLOCK_SIZE
-        elif self.direction == Direction.UP:
-            y -= BLOCK_SIZE
+#         x = self.head.x
+#         y = self.head.y
+#         if self.direction == Direction.RIGHT:
+#             x += BLOCK_SIZE
+#         elif self.direction == Direction.LEFT:
+#             x -= BLOCK_SIZE
+#         elif self.direction == Direction.DOWN:
+#             y += BLOCK_SIZE
+#         elif self.direction == Direction.UP:
+#             y -= BLOCK_SIZE
             
-        self.head = Point(x, y)
+#         self.head = Point(x, y)
 
 
-viper = Viper()
+# viper = Viper()
 
 
 class SnakeGameAI:
@@ -158,8 +158,8 @@ class SnakeGameAI:
         pygame.display.set_caption('Snake')
         self.clock = pygame.time.Clock()
         self.reset()
-        self.snake = [0]
-        viper.snake = [0]
+        # self.snake = [0]
+        # viper = [0]
 
     def reset(self):
         # init game state
@@ -167,34 +167,44 @@ class SnakeGameAI:
         
         self.head = Point(self.w*2/3, self.h*2/3)
         self.snake = [self.head, 
-                      Point(self.head.x-BLOCK_SIZE, self.head.y),
-                      Point(self.head.x-(2*BLOCK_SIZE), self.head.y)]
+                      Point(self.head.x+BLOCK_SIZE, self.head.y),
+                      Point(self.head.x+(2*BLOCK_SIZE), self.head.y)]
         
-        viper.direction = Direction.RIGHT
+        self.direction_v = Direction.RIGHT
         
-        viper.head = Point(self.w/3, self.h/3)
-        viper.snake = [self.head, 
-                      Point(self.head.x-BLOCK_SIZE, self.head.y),
-                      Point(self.head.x-(2*BLOCK_SIZE), self.head.y)]
+        self.head_v = Point(self.w/3, self.h/3)
+        self.viper = [self.head_v, 
+                      Point(self.head_v.x-BLOCK_SIZE, self.head_v.y),
+                      Point(self.head_v.x-(2*BLOCK_SIZE), self.head_v.y)]
         
         self.score = 0
         self.food = None
+        self.score_v = 0
+        self.food_v = None
+        
         self._place_food()
         self.frame_iteration = 0
+        self._place_food_v()
+        self.frame_iteration_v = 0
 
-        viper.score = 0
-        viper.food = None
-        viper._place_food()
-        viper.frame_iteration = 0
+        self.game_over = False
+        self.game_over_v = False
         
     def _place_food(self):
         x = random.randint(0, (self.w-BLOCK_SIZE )//BLOCK_SIZE )*BLOCK_SIZE 
         y = random.randint(0, (self.h-BLOCK_SIZE )//BLOCK_SIZE )*BLOCK_SIZE
         self.food = Point(x, y)
-        if self.food in self.snake:
+        if self.food in self.snake or self.food in self.viper or self.food == self.food_v:
             self._place_food()
+
+    def _place_food_v(self):
+        x = random.randint(0, (self.w-BLOCK_SIZE )//BLOCK_SIZE )*BLOCK_SIZE 
+        y = random.randint(0, (self.h-BLOCK_SIZE )//BLOCK_SIZE )*BLOCK_SIZE
+        self.food_V = Point(x, y)
+        if self.food_v in self.snake or self.food_v in self.viper or self.food_v == self.food:
+            self._place_food_v()
         
-    def play_step(self, action):
+    def play_step(self, action, action_v):
         self.frame_iteration += 1
         # 1. collect user input
         for event in pygame.event.get():
@@ -203,51 +213,70 @@ class SnakeGameAI:
                 quit()
         
         # 2. move
-        self._move(action) # update the head
-        self.snake.insert(0, self.head)
-
-        viper._move(action)
-        viper.snake.insert(0, viper.head)
+        if not self.game_over:
+            self._move(action) # update the head
+            self.snake.insert(0, self.head)
+        if not self.game_over_v:
+            self._move(action_v)
+            self.viper.insert(0, self.head_v)
         
         # 3. check if game over
         reward = 0
-        game_over = False
+        reward_v = 0
         if self.is_collision() or self.frame_iteration > 100*len(self.snake):
-            game_over = True
+            self.game_over = True
             reward = -10
-            return reward, game_over, self.score
-        if viper.is_collision():
-            game_over = True
-            reward = -10
-            return reward, game_over, self.score
+            # return reward, self.game_over, self.score
+        if self.is_collision_v() or self.frame_iteration_v > 100*len(self.viper):
+            self.game_over_v = True
+            reward_v = -10
+            # return reward_v, self.game_over_v, self.score_v
             
         # 4. place new food or just move
-        if self.head == self.food:
-            self.score += 1
-            reward = 10
-            self._place_food()
-        else:
-            self.snake.pop()
-        if viper.head == viper.food:
-            viper.score += 1
-            viper._place_food()
-        else:
-            viper.snake.pop()
+        if not self.game_over:
+            if self.head == self.food:
+                self.score += 1
+                reward = 10
+                self._place_food()
+            else:
+                self.snake.pop()
+        if not self.game_over_v:
+            if self.head_v == self.food_v:
+                self.score_v += 1
+                self._place_food_v()
+            else:
+                self.viper.pop()
         
         # 5. update ui and clock
         self._update_ui()
         self.clock.tick(SPEED)
         # 6. return game over and score
-        return reward, game_over, self.score
+        return reward, self.game_over, self.score, reward_v, self.game_over_v, self.score_v
     
     def is_collision(self, pt=None):
         if pt is None:
             pt = self.head
         # hits boundary
         if pt.x > self.w - BLOCK_SIZE or pt.x < 0 or pt.y > self.h - BLOCK_SIZE or pt.y < 0:
+            print("hi")
             return True
         # hits itself
-        if pt in self.snake[1:] or pt in viper.snake:
+        if pt in self.snake[1:] or pt in self.viper:
+            print("snake")
+            return True
+        
+        return False
+    
+    def is_collision_v(self, pt=None):
+        if pt is None:
+            pt = self.head_v
+        # hits boundary
+        if pt.x > self.w - BLOCK_SIZE or pt.x < 0 or pt.y > self.h - BLOCK_SIZE or pt.y < 0:
+            print("bye")
+            return True
+        # hits itself
+        if pt in self.viper[1:] or pt in self.snake:
+            print("viper")
             return True
         
         return False
@@ -258,15 +287,15 @@ class SnakeGameAI:
         for pt in self.snake:
             pygame.draw.rect(self.display, BLUE1, pygame.Rect(pt.x, pt.y, BLOCK_SIZE, BLOCK_SIZE))
             pygame.draw.rect(self.display, BLUE2, pygame.Rect(pt.x+4, pt.y+4, 12, 12))
-        for pt in viper.snake:
+        for pt in self.viper:
             pygame.draw.rect(self.display, BLUE1, pygame.Rect(pt.x, pt.y, BLOCK_SIZE, BLOCK_SIZE))
             pygame.draw.rect(self.display, BLUE2, pygame.Rect(pt.x+4, pt.y+4, 12, 12))
             
         pygame.draw.rect(self.display, RED, pygame.Rect(self.food.x, self.food.y, BLOCK_SIZE, BLOCK_SIZE))
-        pygame.draw.rect(self.display, RED, pygame.Rect(viper.food.x, viper.food.y, BLOCK_SIZE, BLOCK_SIZE))
+        pygame.draw.rect(self.display, RED, pygame.Rect(self.food_v.x, self.food_v.y, BLOCK_SIZE, BLOCK_SIZE))
         
-        text = font.render("Score: " + str(self.score), True, WHITE)
-        text_v = font.render("Score: " + str(viper.score), True, WHITE)
+        text = font.render("Score S: " + str(self.score), True, WHITE)
+        text_v = font.render("Score V: " + str(self.score_v), True, WHITE)
         self.display.blit(text, [0, 0])
         self.display.blit(text_v, [300, 0])
         pygame.display.flip()
@@ -300,3 +329,33 @@ class SnakeGameAI:
             y -= BLOCK_SIZE
             
         self.head = Point(x, y)
+
+    def _move_v(self, action):
+        # [straight, right, left]
+
+        clock_wise = [Direction.RIGHT, Direction.DOWN, Direction.LEFT, Direction.UP]
+        idx = clock_wise.index(self.direction_v)
+
+        if np.array_equal(action, [1, 0, 0]):
+            new_dir = clock_wise[idx] #no change(straight)
+        if np.array_equal(action, [0, 1, 0]):
+            next_idx = (idx + 1) % 4
+            new_dir = clock_wise[next_idx] # right turn (+1 clockwise, modulus 4 to stay in range)
+        else: # [0, 0, 1]
+            next_idx = (idx -1) % 4
+            new_dir = clock_wise[next_idx] # left turn (-1 clockwise, modulus 4 to stay in range)
+
+        self.direction_v = new_dir
+
+        x = self.head_v.x
+        y = self.head_v.y
+        if self.direction_v == Direction.RIGHT:
+            x += BLOCK_SIZE
+        elif self.direction_v == Direction.LEFT:
+            x -= BLOCK_SIZE
+        elif self.direction_v == Direction.DOWN:
+            y += BLOCK_SIZE
+        elif self.direction_v == Direction.UP:
+            y -= BLOCK_SIZE
+            
+        self.head_v = Point(x, y)
