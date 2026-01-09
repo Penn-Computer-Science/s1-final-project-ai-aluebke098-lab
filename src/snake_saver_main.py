@@ -186,10 +186,11 @@ def train():
 
             if score > record: # update high score
                 record = score
-                agent.model.save()
             if score_v > record_v:
                 record_v = score_v
-                agent.model_v.save('viper.pth')
+                
+            agent.model.save('snake3.pth')
+            agent.model_v.save('viper3.pth')
 
             print('Game', agent.n_games, '\nSnake Score:', score, 'Record:', record, '\nViper Score:', score_v,'Record:', record_v)
 

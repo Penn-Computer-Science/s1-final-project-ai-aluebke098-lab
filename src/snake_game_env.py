@@ -70,7 +70,6 @@ class SnakeGameAI:
         self._place_food()
         self.frame_iteration = 0
         self._place_food_v()
-        self.frame_iteration_v = 0
 
         self.game_over = False
         self.game_over_v = False
@@ -110,7 +109,7 @@ class SnakeGameAI:
 
         if not self.game_over:
             # 3. check if game over
-            if self.is_collision() or self.frame_iteration > 100*len(self.snake):
+            if self.is_collision() or self.frame_iteration > 50*len(self.snake):
                 self.game_over = True
                 reward = -10
             # 4. place new food or just move
@@ -123,7 +122,7 @@ class SnakeGameAI:
         
         if not self.game_over_v:
             # 3. check if game over
-            if self.is_collision_v() or self.frame_iteration_v > 100*len(self.viper):
+            if self.is_collision_v() or self.frame_iteration > 50*len(self.viper):
                 self.game_over_v = True
                 reward_v = -10
             # 4. place new food or just move

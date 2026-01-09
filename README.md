@@ -177,16 +177,17 @@ model = keras.models.load_model("model.keras")
 ## Reflection - Complete this once you have finished!
 
 **Best performing model/run and why:**  
-*(Write here)*  
+  snake_1 and snake_2 are about the same, but snake_2 might be slightly better because one of the snakes made it to 2 food in a run slightly faster? But that was probably mostly random chance perhaps. But it definently wasn't snake_3, that one kind of just did worse.    
 
 **Most important hyperparameters and effects:**  
-*(Write here)*  
+  It took me a while to just get two snakes working, so I didn't really mess around with the parameters that much. Snake_1 was the base, also the only dataset that actually got 30 minutes in. Snake_2 I lowered the time out limit, but I don't really know how effective it was in making them better (also because viper wasn't set to time out properly). Snake_3 I fixed viper's time out issue, and tried lowering the initial epsilon value, but I think that just made the snakes loop around in circles more. 
 
 **Dataset limitations or biases:**  
-*(Write here)*  
+  It definently takes a while for the AI to learn how to play snake, 30 minutes just isn't enough time for it to get any good. Also I keep accidentally crashing it trying to move the graph window and then I don't get to save the graphs so that's why some of them are just the console score logs.   
 
 **Unexpected results:**  
-*(Write here)*  
+  Well, I'm not really sure why, but if I try to move the graph window while the game is running it crashes.   
 
 **What you would improve with more time:**  
-*(Write here)*  
+  I think that I would try to learn how the class system really works, because if I used that it would probably be easier to add more snakes and make it work instead of just duplicating a lot of variables. Also probably figuring out how to load the saved models, because I think it's just been startng over and overwriting the old ones and I don't know how to load an old one.
+  I would like to try changing the reward values a bit, to try and get them to do stuff faster but I'm not sure how good that would be. 
